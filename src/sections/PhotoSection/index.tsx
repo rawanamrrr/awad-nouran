@@ -17,7 +17,8 @@ const box = (w: number, h: number) => ({
 const REVEAL_THRESHOLD = 0.5; // fraction of the cover that must be scratched off
 const SCRIPT_FONT = '"Monsieur La Doulaise Local", "Snell Roundhand", cursive';
 
-const paintCover = (canvas: HTMLCanvasElement) => {
+// The scratch-off surface itself (no text yet).
+const paintBase = (canvas: HTMLCanvasElement) => {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
   const { width: w, height: h } = canvas;
@@ -41,6 +42,16 @@ const paintCover = (canvas: HTMLCanvasElement) => {
     ctx.fillRect(Math.random() * w, Math.random() * h, 1.4, 1.4);
   }
 
+};
+
+// The "Scratch / to reveal" text. Drawn with `source-atop`, so it only lands on the part of the
+// cover that is still there (if someone already scratched, those spots stay see-through).
+const paintText = (canvas: HTMLCanvasElement) => {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  const { width: w, height: h } = canvas;
+
+  ctx.globalCompositeOperation = "source-atop";
   ctx.fillStyle = "#5d6e8e";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -48,6 +59,7 @@ const paintCover = (canvas: HTMLCanvasElement) => {
   ctx.fillText("Scratch", w / 2, h * 0.46);
   ctx.font = `${w * 0.15}px ${SCRIPT_FONT}`;
   ctx.fillText("to reveal", w / 2, h * 0.57);
+  ctx.globalCompositeOperation = "source-over";
 };
 
 export const PhotoSection = () => {
@@ -61,21 +73,25 @@ export const PhotoSection = () => {
     if (!canvas) return;
     let cancelled = false;
 
-    const init = () => {
-      if (cancelled) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.round(canvas.clientWidth * dpr));
-      canvas.height = Math.max(1, Math.round(canvas.clientHeight * dpr));
-      paintCover(canvas);
-    };
+    // 1) Show the cover right away.
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.round(canvas.clientWidth * dpr));
+    canvas.height = Math.max(1, Math.round(canvas.clientHeight * dpr));
+    paintBase(canvas);
 
-    // wait for the script font so the cover text is drawn with it
+    // 2) Add the text only once the script font is really loaded. Drawing it earlier would
+    //    use a fallback font (that was the "damaged" lettering). If the font never arrives
+    //    within 10 s (offline, blocked), draw it with the fallback rather than leave it empty.
+    const drawText = () => {
+      if (!cancelled) paintText(canvas);
+    };
+    const fontSpec = `40px "Monsieur La Doulaise Local"`;
     Promise.race([
-      document.fonts.load(`40px "Monsieur La Doulaise Local"`),
-      new Promise((r) => setTimeout(r, 1500)),
+      Promise.all([document.fonts.load(fontSpec, "Scratch to reveal"), document.fonts.ready]),
+      new Promise((r) => setTimeout(r, 10_000)),
     ])
       .catch(() => undefined)
-      .then(init);
+      .then(drawText);
 
     return () => {
       cancelled = true;

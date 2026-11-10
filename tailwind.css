@@ -44,12 +44,12 @@
 }
 
 @font-face {
-  /* @FONTWARNING[{"type":"restricted","family":"Monsieur La Doulaise Local","weight":"400","style":"normal","allowsCrossOrigin":true}] */
+  /* Self-hosted copy (SIL Open Font License) so it never depends on another website. */
   font-family: 'Monsieur La Doulaise Local';
-  src: url('https://motherofpearl.thedigitalyes.com/__l5e/assets-v1/67fefb41-0ec2-493d-918e-a8e2c44db686/MonsieurLaDoulaise-Regular.ttf')
-    format('truetype');
+  src: url('./src/assets/fonts/MonsieurLaDoulaise-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
+  font-display: block;
 }
 
 @tailwind base;
