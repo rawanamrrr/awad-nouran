@@ -109,7 +109,7 @@ export const Rsvp = () => {
         <div className="mx-auto max-w-2xl pt-[60px]">
           <div className="mb-10 flex flex-col items-center text-center">
             <h2 className="text-5xl leading-[48px] text-slate-600 md:text-7xl md:leading-[72px]">
-              {"RSVP"}
+              {"Confirm your attendance"}
             </h2>
             <p className="mt-4 max-w-md font-jost text-[15px] leading-[24.375px] text-slate-600/80">
               {

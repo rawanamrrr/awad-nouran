@@ -13,7 +13,7 @@ export const Location = () => {
         <p className="text-slate-600/70 text-base font-light box-border caret-transparent tracking-[2.4px] leading-6 outline-[3px] uppercase mt-4 font-jost md:text-lg md:tracking-[2.7px] md:leading-7">
           {"Tut Ballroom"}
         </p>
-        <p className="text-slate-600/80 text-xs font-light box-border caret-transparent leading-[19.5px] outline-[3px] mt-8 font-jost md:text-[13px] md:leading-[21.125px]">
+        <p className="text-slate-600/80 text-[clamp(10px,2.7vw,13px)] font-light box-border caret-transparent leading-[19.5px] outline-[3px] mt-8 font-jost whitespace-nowrap md:leading-[21.125px]">
           {
             "The Tut Ballroom at the JW Marriott Hotel will be the setting for our celebration."
           }
