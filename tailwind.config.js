@@ -77,6 +77,8 @@ module.exports = {
           "Noto Color Emoji",
         ],
         great_vibes: ["Great Vibes", "cursive"],
+        cinzel: ["Cinzel", "serif"],
+        playfair: ["Playfair Display", "serif"],
         monsieur_la_doulaise_local: [
           "Monsieur La Doulaise Local",
           "ui-sans-serif",

@@ -30,7 +30,7 @@ export const Hero = () => {
         <p className="text-[17px] box-border caret-transparent tracking-[0.425px] leading-[23.375px] min-h-[auto] min-w-[auto] outline-[3px] mt-6 md:text-[19px] md:tracking-[0.475px] md:leading-[26.125px] md:mt-8">
           {"invite you to their wedding"}
         </p>
-        <p className="text-lg box-border caret-transparent tracking-[0.45px] leading-7 min-h-[auto] min-w-[auto] outline-[3px] mt-6 md:text-xl md:tracking-[0.5px] md:mt-8">
+        <p className="text-[17px] font-medium font-cinzel tracking-[2px] leading-7 box-border caret-transparent min-h-[auto] min-w-[auto] outline-[3px] mt-6 md:text-[19px] md:tracking-[2.5px] md:mt-8">
           {"19.11.2026 · 9:00 PM"}
         </p>
         <div className="text-[17px] items-center box-border caret-transparent flex flex-col leading-[26.35px] min-h-[auto] min-w-[auto] outline-[3px] mt-5 md:text-[19px] md:leading-[29.45px] md:mt-6">
